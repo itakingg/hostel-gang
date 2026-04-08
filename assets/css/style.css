@@ -1,6 +1,4 @@
-/* =========================
-   RESET
-========================= */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -14,94 +12,77 @@ body {
   overflow-x: hidden;
 }
 
-/* =========================
-   HERO
-========================= */
+/* HERO */
 .hero {
   position: relative;
   min-height: 100svh;
-
-  background: url('../images/bgmobile.png') center no-repeat;
-  background-size: cover;
-
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  background: url('../images/bgmobile.png') center / cover no-repeat;
 }
 
-/* DESKTOP BACKGROUND */
 @media (min-width: 769px) {
   .hero {
-    background: url('../images/bgdesktop.png') center no-repeat;
-    background-size: cover;
+    background: url('../images/bgdesktop.png') center / cover no-repeat;
   }
 }
 
-/* OVERLAY */
 .overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg, rgba(10,0,20,0.6), rgba(0,0,0,0.9));
 }
 
-/* CONTENT */
 .hero-content {
   position: relative;
   z-index: 2;
-  width: 100%;
   max-width: 900px;
+  width: 100%;
   padding: 20px;
   animation: fadeIn 1s ease;
 }
 
-/* =========================
-   TEXT
-========================= */
+.hero-footer {
+  margin-top: 30px; /* 🔥 sebelumnya terlalu mepet */
+}
+
+/* TEXT */
 .guild-name {
   font-size: clamp(30px, 8vw, 56px);
-  margin-bottom: 10px;
   color: #d8a4ff;
+  margin-bottom: 10px;
 
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-
-  /* SOFT GLOW */
   text-shadow:
-    0 0 20px rgba(160, 32, 240, 0.4),
-    0 0 40px rgba(160, 32, 240, 0.3),
-    0 0 80px rgba(160, 32, 240, 0.2);
-  
-  filter: blur(0.2px) drop-shadow(0 0 25px rgba(160, 32, 240, 0.4));
-  animation: none; /* MATIKAN dulu */
+    0 0 20px rgba(160,32,240,0.4),
+    0 0 40px rgba(160,32,240,0.3),
+    0 0 80px rgba(160,32,240,0.2);
 }
 
 .desc {
   font-size: clamp(14px, 3.5vw, 18px);
-  margin-bottom: 20px;
   opacity: 0.9;
-  line-height: 1.4;
+  margin-bottom: 20px;
 }
 
-/* =========================
-   BUTTON (FIX MOBILE)
-========================= */
+/* BUTTON */
 .btn-discord {
   display: inline-block;
   padding: 14px 28px;
-  background: linear-gradient(45deg, #6d00ff, #a020f0);
   border-radius: 50px;
+  text-decoration: none;
   color: white;
   font-weight: bold;
-  text-decoration: none;
+
+  background: linear-gradient(45deg, #6d00ff, #a020f0);
+  box-shadow: 0 0 15px #a020f0;
+
   position: relative;
   overflow: hidden;
-
-  box-shadow: 0 0 15px #a020f0;
-  transition: 0.3s;
 }
 
-/* SHIMMER */
 .btn-discord::before {
   content: "";
   position: absolute;
@@ -110,7 +91,6 @@ body {
   transform: translateX(-100%);
 }
 
-/* MOBILE AUTO ANIMATION */
 @media (max-width: 768px) {
   .btn-discord::before {
     animation: shimmerMobile 2.5s infinite;
@@ -121,7 +101,6 @@ body {
   }
 }
 
-/* DESKTOP HOVER */
 @media (min-width: 769px) {
   .btn-discord:hover {
     transform: scale(1.05);
@@ -134,21 +113,45 @@ body {
   }
 }
 
-.btn-discord:active {
-  transform: scale(0.95);
+/* PRELOADER */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #05000a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
-/* =========================
-   CAROUSEL
-========================= */
+.loader-text {
+  color: #d36bff;
+  animation: glowPulse 1.5s infinite alternate;
+}
+
+.loading-fill {
+  height: 100%;
+  width: 0%;
+
+  background: linear-gradient(90deg, #6d00ff, #c084fc);
+
+  box-shadow:
+    0 0 10px #a020f0,
+    0 0 20px #a020f0;
+
+  transform-origin: left; /* 🔥 ini kunci */
+  animation: loadingAnim 2s ease forwards;
+}
+
 .carousel {
-  margin-top: 25px;
+  margin-top: 30px;
+  padding: 30px 12px 10px;
   overflow: hidden;
 }
 
 .track {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 /* CARD */
@@ -156,60 +159,50 @@ body {
   position: relative;
   flex: 0 0 75%;
   border-radius: 14px;
-  overflow: hidden;
 
   transform: scale(0.9);
   opacity: 0.7;
   filter: blur(2px);
-
   transition: 0.4s;
+
+  background: #05000a;
 }
 
+/* IMAGE */
 .card img {
   width: 100%;
   aspect-ratio: 16/9;
   object-fit: cover;
+  border-radius: 12px;
+  position: relative;
+  z-index: 2;
 }
 
-/* ACTIVE CENTER */
+/* ACTIVE */
 .card.active {
-  transform: scale(1.1);
+  transform: scale(1.06);
   opacity: 1;
   filter: none;
   box-shadow: 0 0 30px rgba(160,32,240,0.6);
 }
 
-/* NEON BORDER */
+/* 🔥 NEON FIX (NO MASK, NO BUG) */
 .card::before {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: 14px;
-  padding: 2px;
+  inset: -2px;
+  border-radius: 16px;
 
   background: linear-gradient(45deg, #6d00ff, #c084fc, #00f0ff);
   background-size: 300% 300%;
 
-  /* FIX MASK (COMPATIBLE) */
--webkit-mask:
-  linear-gradient(#000 0 0) content-box,
-  linear-gradient(#000 0 0);
-
--webkit-mask-composite: xor;
-
-/* STANDARD VERSION (WAJIB TAMBAH) */
-mask:
-  linear-gradient(#000 0 0) content-box,
-  linear-gradient(#000 0 0);
-
-mask-composite: exclude;
-
   animation: neonMove 4s linear infinite;
+
+  z-index: 1;
+  filter: blur(4px);
+  opacity: 0.8;
 }
 
-/* =========================
-   RESPONSIVE CARD
-========================= */
 @media (max-width: 480px) {
   .card {
     flex: 0 0 85%;
@@ -231,141 +224,203 @@ mask-composite: exclude;
   }
 }
 
-/* =========================
-   MUSIC BUTTON
-========================= */
+/* MUSIC */
 #music-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+  display: block;
+  margin: 35px auto 10px;
+  padding: 12px;
+  border-radius: 50%;
+
   background: rgba(160,32,240,0.15);
   border: 1px solid #a020f0;
   color: white;
-  padding: 12px;
-  border-radius: 50%;
-  backdrop-filter: blur(10px);
+
   cursor: pointer;
-  z-index: 10;
+
+  /* 🔥 ANIMASI */
+  animation: floatBtn 3s ease-in-out infinite;
+  transition: all 0.3s ease;
 }
 
-/* =========================
-   PRELOADER (FIX EFFECT)
-========================= */
-#preloader {
-  position: fixed;
-  inset: 0;
-  background: #05000a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
+@keyframes floatBtn {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
-.loader {
-  text-align: center;
+#music-toggle:hover {
+  transform: scale(1.15);
+  box-shadow:0 0 8px rgba(160,32,240,0.5);
 }
 
-/* TEXT */
-.loader-text {
-  font-size: 26px;
-  color: #d36bff;
-  margin-bottom: 15px;
-  animation: glowPulse 1.5s infinite alternate;
+#music-toggle:active {
+  transform: scale(0.9);
 }
 
-.loading-bar {
-  width: 220px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 999px;
-  overflow: hidden;
-  margin-top: 15px;
+#music-toggle.playing {
+  animation: pulseMusic 1s infinite alternate;
 }
 
-.loading-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #6d00ff, #c084fc);
-  box-shadow: 0 0 10px #a020f0, 0 0 20px #a020f0;
-  animation: loadingAnim 1.5s ease forwards;
+@keyframes pulseMusic {
+  from {
+    box-shadow: 0 0 10px #a020f0;
+  }
+  to {
+    box-shadow:
+      0 0 25px #c084fc,
+      0 0 50px rgba(192,132,252,0.8);
+  }
 }
 
-/* =========================
-   ENTER BUTTON (NEON STYLE)
-========================= */
+#music-toggle {
+  transition: all 0.3s ease;
+}
 
+#music-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(192,132,252,0.6);
+}
+
+#music-toggle.playing {
+  box-shadow: 0 0 20px rgba(192,132,252,0.8);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  filter: blur(10px);
+
+  transition:
+    opacity 0.8s ease,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+}
+
+body.loaded .reveal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.5s; }
+.delay-3 { transition-delay: 0.8s; }
+.delay-4 { transition-delay: 1.1s; }
+.delay-5 { transition-delay: 1.4s; }
+
+body.entering .hero-content {
+  animation: heroContentIn 1s ease forwards;
+}
+
+@keyframes heroContentIn {
+  from {
+    transform: scale(1.05);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.card {
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease,
+    filter 0.5s ease;
+}
+
+/* ANIMATION */
+@keyframes neonMove {
+  0% { background-position: 0%; }
+  100% { background-position: 300%; }
+}
+
+@keyframes shimmerMobile {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes pulseBtn {
+  from { box-shadow: 0 0 10px #a020f0; }
+  to { box-shadow: 0 0 25px #c084fc; }
+}
+
+@keyframes glowPulse {
+  from { text-shadow: 0 0 10px #a020f0; }
+  to { text-shadow: 0 0 30px #c084fc; }
+}
+
+@keyframes loadingAnim {
+  to { width: 100%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ENTER BUTTON FIX */
 #enter-btn {
   margin-top: 25px;
   padding: 12px 28px;
 
   border-radius: 999px;
   font-size: 14px;
-  font-family: 'Orbitron', sans-serif;
   letter-spacing: 1px;
 
   color: #fff;
   cursor: pointer;
 
-  /* GRADIENT */
   background: linear-gradient(45deg, #6d00ff, #c084fc);
 
-  /* GLOW */
   box-shadow:
     0 0 10px #a020f0,
     0 0 20px #a020f0,
-    0 0 40px rgba(160, 32, 240, 0.5);
+    0 0 40px rgba(160,32,240,0.5);
 
-  /* ANIMASI HALUS */
   transition: all 0.3s ease;
 
-  /* HIDDEN DEFAULT */
+  /* 🔥 hidden awal */
   opacity: 0;
   transform: translateY(10px) scale(0.95);
   pointer-events: none;
 }
 
-/* MUNCUL SETELAH LOADING */
+/* 🔥 muncul setelah loading */
 #preloader.ready #enter-btn {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
 }
 
-/* HOVER (DESKTOP) */
+/* hover */
 #enter-btn:hover {
   transform: scale(1.08);
   box-shadow:
     0 0 15px #c084fc,
     0 0 30px #c084fc,
-    0 0 60px rgba(192, 132, 252, 0.6);
+    0 0 60px rgba(192,132,252,0.6);
 }
 
-/* CLICK EFFECT */
 #enter-btn:active {
   transform: scale(0.95);
 }
 
-/* OPTIONAL: GLOW PULSE */
-#enter-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(45deg, #6d00ff, #c084fc);
-  opacity: 0.3;
-  filter: blur(15px);
-  z-index: -1;
-  animation: pulseGlow 2s infinite;
+/* fade preloader */
+#preloader {
+  transition: opacity 0.6s ease;
 }
 
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
+body.loaded #preloader {
+  opacity: 0;
+  pointer-events: none;
 }
-
-/* =========================
-   ENTER CINEMATIC EFFECT
-========================= */
 
 #enter-overlay {
   position: fixed;
@@ -376,31 +431,12 @@ mask-composite: exclude;
   z-index: 9998;
 }
 
-/* FLASH */
 #enter-overlay.active {
   animation: enterFlash 0.8s ease forwards;
 }
 
-/* HERO CINEMATIC */
 body.entering .hero {
   animation: heroZoom 1s ease forwards;
-}
-
-/* =========================
-   ANIMATION
-========================= */
-@keyframes shimmerMobile {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-@keyframes loadingAnim {
-  from {
-    width: 0%;
-  }
-  to {
-    width: 100%;
-  }
 }
 
 @keyframes enterFlash {
@@ -431,162 +467,121 @@ body.entering .hero {
   }
 }
 
-/* FADE PRELOADER */
-#preloader {
-  transition: opacity 0.6s ease;
-}
-
-
-@keyframes pulseBtn {
-  from { box-shadow: 0 0 10px #a020f0; }
-  to { box-shadow: 0 0 25px #c084fc; }
-}
-
-@keyframes glowPulse {
-  from { text-shadow: 0 0 10px #a020f0; }
-  to { text-shadow: 0 0 30px #c084fc; }
-}
-
-@keyframes glowSmooth {
-  0% {
-    text-shadow:
-      0 0 8px rgba(192, 132, 252, 0.3),
-      0 0 20px rgba(160, 32, 240, 0.3);
-  }
-
-  50% {
-    text-shadow:
-      0 0 15px rgba(192, 132, 252, 0.6),
-      0 0 40px rgba(160, 32, 240, 0.5);
-  }
-
-  100% {
-    text-shadow:
-      0 0 8px rgba(192, 132, 252, 0.3),
-      0 0 20px rgba(160, 32, 240, 0.3);
-  }
-}
-
-@keyframes neonMove {
-  0% { background-position: 0%; }
-  100% { background-position: 300%; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-body.loaded #preloader {
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.5s;
-}
-
-/* FOOTER */
-.hero-footer {
-  margin-top: 20px;
-  font-size: 12px;
-  opacity: 0.6;
-}
-
-/* =========================
-   GLITCH EFFECT
-========================= */
-
-/* .glitch {
-  position: relative;
-  color: #d36bff;
-} */
-
-/* layer merah */
-/* .glitch::before,
-.glitch::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
+.loading-bar {
+  width: 220px;
+  height: 4px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
   overflow: hidden;
-} */
-
-/* RED SHIFT */
-/* .glitch::before {
-  color: #ff00c8;
-  z-index: -1;
-} */
-
-/* BLUE SHIFT */
-/* .glitch::after {
-  color: #00fff9;
-  z-index: -2;
-} */
-
-/* AKTIF SAAT MASUK */
-/* body.entering .glitch::before {
-  animation: glitchTop 0.4s linear;
+  margin-top: 15px;
 }
 
-body.entering .glitch::after {
-  animation: glitchBottom 0.4s linear;
-} */
+.loading-fill {
+  height: 100%;
+  width: 0%;
 
-/* ANIMATION */
-/* @keyframes glitchTop {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, -2px); }
-  40% { transform: translate(2px, 2px); }
-  60% { transform: translate(-1px, 1px); }
-  80% { transform: translate(1px, -1px); }
-  100% { transform: translate(0); }
-} */
+  background: linear-gradient(90deg, #6d00ff, #c084fc);
 
-/* @keyframes glitchBottom {
-  0% { transform: translate(0); }
-  20% { transform: translate(2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(1px, -1px); }
-  80% { transform: translate(-1px, 1px); }
-  100% { transform: translate(0); }
-} */
+  box-shadow:
+    0 0 10px #a020f0,
+    0 0 20px #a020f0;
 
-/* =========================
-   REVEAL SYSTEM (CINEMATIC)
-========================= */
+  animation: loadingAnim 2s ease forwards; /* 🔥 durasi sync */
+}
 
-.reveal {
+/* TEXT masuk dulu */
+.loader-text {
+  font-size: 26px;
+  color: #d36bff;
+  margin-bottom: 15px;
+
+  animation:
+    fadeIn 0.6s ease,
+    glowPulse 1.5s infinite alternate;
+}
+
+/* BAR delay sedikit */
+.loading-bar {
   opacity: 0;
-  transform: translateY(30px) scale(0.98);
-  filter: blur(6px);
-  transition: all 0.8s ease;
+  animation: fadeIn 0.6s ease forwards;
+  animation-delay: 0.5s;
 }
 
-/* aktif setelah masuk */
-body.loaded .reveal {
+/* BUTTON muncul terakhir */
+#enter-btn {
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  pointer-events: none;
+
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: 2s; /* 🔥 setelah loading */
+}
+
+/* tetap sync dengan JS */
+#preloader.ready #enter-btn {
   opacity: 1;
   transform: translateY(0) scale(1);
-  filter: blur(0);
+  pointer-events: auto;
 }
 
-.delay-1 { transition-delay: 0.2s; }
-.delay-2 { transition-delay: 0.5s; }
-.delay-3 { transition-delay: 0.8s; }
-.delay-4 { transition-delay: 1.1s; }
-.delay-5 { transition-delay: 1.4s; }
-
-body.loaded .guild-name {
-  animation: titlePop 0.8s ease;
-}
-
-@keyframes titlePop {
-  0% {
-    transform: scale(0.8);
+@keyframes fadeInUp {
+  from {
     opacity: 0;
-    filter: blur(10px);
+    transform: translateY(15px) scale(0.95);
   }
-  100% {
-    transform: scale(1);
+  to {
     opacity: 1;
-    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#enter-btn {
+  display: inline-block;
+  text-align: center;
+}
+
+.loading-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 🔥 HILANGKAN TAP HIGHLIGHT */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a,
+div {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus,
+a:focus {
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .track {
+    gap: 16px; /* 🔥 dari 12 → 16 */
+  }
+
+   .carousel {
+    padding: 30px 20px 10px; /* kiri kanan lebih lega */
+  }
+
+  .hero-footer {
+    margin-top: 40px;
+  }
+
+  #music-toggle {
+    margin: 45px auto 20px;
   }
 }

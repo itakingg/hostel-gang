@@ -85,6 +85,8 @@ if (enterBtn) {
       .then(() => {
         isPlaying = true;
         toggle.innerText = "🎧";
+        toggle.classList.add("playing");
+        toggle.classList.add("playing");
       })
       .catch(() => {});
 
